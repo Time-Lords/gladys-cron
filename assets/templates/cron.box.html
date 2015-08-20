@@ -1,0 +1,117 @@
+<table ng-show="vm.rules.length > 0" class="table table-condensed">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Rule</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="rule in vm.rules">
+      <td>{{rule.id}}</td>
+      <td>{{rule.name}}</td>
+      <td>{{rule | ruleToString}}</td>
+      <td>
+        <button ng-click="vm.editRule(rule)" class="btn btn-primary btn-xs">Edit</button> 
+        <button ng-click="vm.destroyRule(rule)" class="btn btn-danger btn-xs">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div ng-show="vm.rules.length == 0" class="alert alert-info">
+  You don't have rule.
+</div>
+
+<hr>
+
+<div class="from-group text-center">
+  <button ng-click="vm.modal = 'new'" class="btn btn-primary"><i class="fa fa-plus"></i> Add a cron rule</button>
+</div>
+
+
+<!-- modal -->
+<div class="modal modal-cron" ng-show="vm.modal">
+  <div class="modal-dialog">
+    <div ng-if="vm.modal" ng-include src="'/cron.modal.'+ vm.modal +'.html'" class="modal-content" id="cron-modal-content"></div>
+  </div>
+</div><!-- modal -->
+
+<!-- modal content -->
+<script type="text/ng-template" id="/cron.modal.new.html">
+  <div class="modal-header">
+    <button ng-click="vm.modal=false" type="button" class="close"><span aria-hidden="true">×</span></button>
+    <h4 class="modal-title">Add a cron rule</h4>
+  </div>
+  <div class="modal-body">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div ng-show="vm.error.addRule" class="alert alert-danger">{{vm.error.addRule}}</div>
+      <label>Name</label> 
+      <div class="form-group">
+        <input ng-model="vm.new_rule.name" type="text" class="form-control" placeholder="Name on Gladys">
+      </div>
+      <label>Rule</label> 
+      <div class="form-group">
+        <input ng-model="vm.new_rule.second" type="text" class="form-control" placeholder="Second - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.new_rule.minute" type="text" class="form-control" placeholder="Minute - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.new_rule.hour" type="text" class="form-control" placeholder="Hour - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.new_rule.dayOfMonth" type="text" class="form-control" placeholder="Day of month - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.new_rule.month" type="text" class="form-control" placeholder="Month - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.new_rule.dayOfWeek" type="text" class="form-control" placeholder="Day of week - Default to *">
+      </div>
+      <div class="form-group text-right">
+        <button ng-click="vm.addRule()" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</script>
+<script type="text/ng-template" id="/cron.modal.edit.html">
+  <div class="modal-header">
+    <button ng-click="vm.modal=false" type="button" class="close"><span aria-hidden="true">×</span></button>
+    <h4 class="modal-title">Edit a cron rule</h4>
+  </div>
+  <div class="modal-body">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div ng-show="vm.error.updateRule" class="alert alert-danger">{{vm.error.updateRule}}</div>
+      <label>Name</label> 
+      <div class="form-group">
+        <input ng-model="vm.edit_rule.name" type="text" class="form-control" placeholder="Name on Gladys">
+      </div>
+      <label>Rule</label> 
+      <div class="form-group">
+        <input ng-model="vm.edit_rule.second" type="text" class="form-control" placeholder="Second - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.edit_rule.minute" type="text" class="form-control" placeholder="Minute - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.edit_rule.hour" type="text" class="form-control" placeholder="Hour - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.edit_rule.dayOfMonth" type="text" class="form-control" placeholder="Day of month - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.edit_rule.month" type="text" class="form-control" placeholder="Month - Default to *">
+      </div>
+      <div class="form-group">
+        <input ng-model="vm.edit_rule.dayOfWeek" type="text" class="form-control" placeholder="Day of week - Default to *">
+      </div>
+      <div class="form-group text-right">
+        <button ng-click="vm.updateRule()" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</script>

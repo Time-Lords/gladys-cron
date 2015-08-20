@@ -1,0 +1,12 @@
+{
+  "name": "Gladys-Cron",
+  "version": "0.1.0",
+  "description": "Cron events for Gladys",
+  "keywords": [],
+  "dependencies": {
+    "node-schedule": "^0.2.9",
+    "sails-util-mvcsloader": "~0.3.0"
+  },
+  "author": "TimeLord",
+  "license": "Creative Commons 3.0 France"
+}
