@@ -11,7 +11,7 @@
     <tr ng-repeat="rule in vm.rules">
       <td>{{rule.id}}</td>
       <td>{{rule.name}}</td>
-      <td>{{rule | ruleToString}}</td>
+      <td ng-bind-html="rule | ruleToString" class="codes-cron"></td>
       <td>
         <button ng-click="vm.editRule(rule)" class="btn btn-primary btn-xs">Edit</button> 
         <button ng-click="vm.destroyRule(rule)" class="btn btn-danger btn-xs">Delete</button>

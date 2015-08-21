@@ -1,3 +1,20 @@
 .modal-cron{
     overflow: auto;display: block; background:rgba(0,0,0,0.4)
 }
+
+.codes-cron .code-cron{
+    border:1px solid #ddd;
+    background: transparent;
+    color:#333;
+    border-left:none;
+    border-radius: 0px;
+    padding:2px 6px;
+}
+
+.codes-cron .code-cron:first-child{
+    border-left:1px solid #ddd;
+    border-radius: 2px 0 0 2px;
+}
+.codes-cron .code-cron:last-child{
+    border-radius: 0 2px 2px 0;
+}
