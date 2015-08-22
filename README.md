@@ -4,7 +4,7 @@ Launch scenarios with your cron rules
 ##Installation
 ```bash
 # Go to the hooks directory
-$ cd api/hooks
+$ cd gladys/api/hooks
 
 # Clone the repository
 $ git clone https://github.com/Time-Lords/gladys-cron.git cron
@@ -12,6 +12,9 @@ $ cd cron
 
 # Install NPM dependencies
 $ npm install
+
+# Restart Gladys
+$ pm2 restart gladys
 ```
 
 ##Usage
