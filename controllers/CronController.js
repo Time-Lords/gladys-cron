@@ -8,26 +8,13 @@
  * @param callback
  */
 var haveRights = function(userId, ruleId, callback){
-	KodiDevice.findOne({user: userId, id: ruleId}, callback);
+	CronRule.findOne({user: userId, id: ruleId}, function(err, rule){
+		if(!rule.id)return callback('userNotAllowed');
+
+		callback();
+	});
 };
 
-/**
- * @method success
- * @param res
- * @param value
- */
-var success = function(res, value){
-	res.json({result: 'success', value: value});
-};
-
-/**
- * @method error
- * @param res
- * @param value
- */
-var error = function(res, value){
-	res.json({result: 'error', value: value});
-};
 
 module.exports = {
 
@@ -39,23 +26,9 @@ module.exports = {
 	 */
 	index : function(req, res, next){
 		CronRule.find({user: req.session.User.id}, function(err, rules){
-			if(err) return res.json(err);
+			if(err) return res.json(400, err);
 
 			return res.json(rules);
-		});
-	},
-
-	/**
-	 * @method indexDashboard
-	 * @param req
-	 * @param res
-	 * @param next
-	 */
-	indexDashboard : function(req, res, next){
-		CronRule.find({user: req.session.User.id}, function(err, rules){
-			if(err) return error(res, err);
-
-			return success(res, rules);
 		});
 	},
 
@@ -78,12 +51,12 @@ module.exports = {
 		};
 
 		CronRule.create(rule, function(err, rule){
-			if(err)return error(res, err);
+			if(err)return res.json(400, err);
 
 			CronService.start(rule.id, function(err){
-				if(err)return error(res, err);
+				if(err)return res.json(400, err);
 
-				return success(res, rule);
+				return res.json(rule);
 			});
 		});
 	},
@@ -105,19 +78,19 @@ module.exports = {
 			dayOfWeek: req.param('dayOfWeek')
 		};
 		haveRights(req.session.User.id, req.param('id'), function(err){
-			if(err)return error(res, err);
+			if(err)return res.json(400, err);
 
 			CronRule.update({id: req.param('id')}, rule, function(err, rules){
-				if(err)return error(res, err);
+				if(err)return res.json(400, err);
 
 				var rule = rules[0];
 				CronService.destroy(rule.id, function(err){
-					if(err)return error(res, err);
+					if(err)return res.json(400, err);
 
 					CronService.start(rule.id, function(err){
-						if(err)return error(res, err);
+						if(err)return res.json(400, err);
 
-						return success(res, rule);
+						return res.json(rule);
 					});
 				});
 			});
@@ -132,16 +105,16 @@ module.exports = {
 	 */
 	destroy : function(req, res, next){
 		haveRights(req.session.User.id, req.param('id'), function(err){
-			if(err)return error(res, err);
+			if(err)return res.json(400, err);
 			
 			CronRule.destroy(req.param('id'), function(err, rules){
-				if(err)return error(res, err);
+				if(err)return res.json(400, err);
 
 				var rule = rules[0];
 				CronService.destroy(rule.id, function(err){
-					if(err)return error(res, err);
+					if(err)return res.json(400, err);
 
-					return success(res, rule);
+					return res.json(rule);
 				});
 			});
 		});

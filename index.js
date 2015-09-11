@@ -6,13 +6,13 @@ module.exports = function (sails) {
   sails.config.Event.on('sailsReady', function(){
 
     CronInstall.launcherType(function(err){
-      if(err)return sails.log.error('Install Cron launcherType failed', err);
-      sails.log.info('Install Cron launcherType OK');
+      if(err)return sails.log.error('Cron : Install launcherType failed :', err);
+      sails.log.info('Cron : Install launcherType OK');
     });
    
     CronInstall.job(function(err){
-      if(err)return sails.log.error('Install Cron jobs failed', err);
-      sails.log.info('Install Cron jobs OK');
+      if(err)return sails.log.error('Cron : Install jobs failed :', err);
+      sails.log.info('Cron : Install jobs OK');
     });
 
   });  

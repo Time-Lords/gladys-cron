@@ -21,6 +21,7 @@
 </table>
 
 <div ng-show="vm.rules.length == 0" class="alert alert-info">
+  <i class="fa fa-info"></i>
   You don't have rule.
 </div>
 
@@ -45,8 +46,12 @@
     <h4 class="modal-title">Add a cron rule</h4>
   </div>
   <div class="modal-body">
+    <div ng-show="vm.error.addRule" class="alert alert-danger">
+      <i class="fa fa-ban"></i>
+      <button ng-click="vm.error.addRule = false" type="button" class="close">x</button>
+      {{vm.error.addRule | errorToString}}
+    </div>
     <div class="col-sm-8 col-sm-offset-2">
-      <div ng-show="vm.error.addRule" class="alert alert-danger">{{vm.error.addRule}}</div>
       <label>Name</label> 
       <div class="form-group">
         <input ng-model="vm.new_rule.name" type="text" class="form-control" placeholder="Name on Gladys">
@@ -83,8 +88,12 @@
     <h4 class="modal-title">Edit a cron rule</h4>
   </div>
   <div class="modal-body">
+    <div ng-show="vm.error.updateRule" class="alert alert-danger">
+      <i class="fa fa-ban"></i>
+      <button ng-click="vm.error.updateRule = false" type="button" class="close">x</button>
+      {{vm.error.updateRule | errorToString}}
+    </div>
     <div class="col-sm-8 col-sm-offset-2">
-      <div ng-show="vm.error.updateRule" class="alert alert-danger">{{vm.error.updateRule}}</div>
       <label>Name</label> 
       <div class="form-group">
         <input ng-model="vm.edit_rule.name" type="text" class="form-control" placeholder="Name on Gladys">

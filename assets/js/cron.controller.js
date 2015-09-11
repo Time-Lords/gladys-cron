@@ -41,7 +41,7 @@
 
 		function getRules(){
 			return cronService.getRules()
-				.then(function(rules){ 
+				.then(function(rules){
 					vm.rules = rules;
 				});
 		}
@@ -60,8 +60,8 @@
 
 		function destroyRule(rule){
 			return cronService.destroyRule(rule)
-				.then(function(){ 
-					vm.rules.splice(vm.rules.indexOf(rule), 1); 
+				.then(function(){
+					vm.rules.splice(vm.rules.indexOf(rule), 1);
 				});
 		}
 

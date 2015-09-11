@@ -14,26 +14,24 @@
         updateRule: updateRule
       };
 
-      function error(data, status, headers, config){
-        console.log(data, status, headers, config);
-      }
-
       function request(method, url, data){
         var deferred = $q.defer();
-        $http({method: method, url: '/cron' + url, data: data })
+
+        $http({method: method, url: '/cron' + url, data: data})
           .success(function(data, status, headers, config) {
-            if(data.result == 'success'){
-              deferred.resolve(data.value);
-            }else{
-             deferred.reject(data.value);
-            }
+            deferred.resolve(data);
           })
-          .error(error);
+          .error(function(data, status, headers, config){
+            if(status === 400){
+              deferred.reject(data);
+            }
+          });
+
         return deferred.promise;
       }
 
       function getRules(){
-        return request('GET', '/indexDashboard', {});
+        return request('GET', '/index', {});
       }
 
       function addRule(rule){
