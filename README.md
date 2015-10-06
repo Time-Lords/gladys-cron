@@ -14,7 +14,7 @@ $ cd cron
 $ npm install
 
 # Restart Gladys
-$ pm2 restart gladys
+$ sudo pm2 restart gladys
 ```
 
 ##Usage
