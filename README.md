@@ -1,4 +1,6 @@
-##Features
+#Gladys Cron
+**Useless** with Gladys >= 3.0.0
+
 Launch scenarios with your cron rules
 
 ##Installation
